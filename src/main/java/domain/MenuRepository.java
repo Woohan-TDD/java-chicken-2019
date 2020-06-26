@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class MenuRepository {
     private static final List<Menu> menus = new ArrayList<>();
@@ -18,7 +19,13 @@ public class MenuRepository {
         menus.add(new Menu(22, "사이다", Category.BEVERAGE, 1_000));
     }
 
-    public static List<Menu> menus() {
+    public List<Menu> findAll() {
         return Collections.unmodifiableList(menus);
+    }
+
+    public Optional<Menu> findMenuByNumber(final int number) {
+        return menus.stream()
+                .filter(menu -> menu.isSameNumber(number))
+                .findFirst();
     }
 }
