@@ -1,4 +1,4 @@
-package domain.table;
+package domain.table.order;
 
 import java.util.Objects;
 
@@ -41,5 +41,10 @@ public class OrderAmount {
     @Override
     public int hashCode() {
         return Objects.hash(amount);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(amount);
     }
 }

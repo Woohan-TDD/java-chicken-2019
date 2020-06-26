@@ -1,4 +1,4 @@
-package domain.table;
+package domain.table.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

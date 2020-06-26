@@ -1,11 +1,14 @@
-package domain.table;
+package domain.table.order;
 
 import static domain.table.Fixture.CHICKEN;
 import static domain.table.Fixture.CHICKEN_ORDER;
+import static domain.table.Fixture.CIDER;
 import static domain.table.Fixture.CIDER_ORDER;
 import static domain.table.Fixture.MAX_ORDER_AMOUNT;
+import static domain.table.Fixture.ORDER_TEN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,7 +54,26 @@ class OrderTest {
     void isSameMenu() {
         Order chickenOrder = new Order(CHICKEN, MAX_ORDER_AMOUNT);
 
-        assertThat(CHICKEN_ORDER.isSameMenu(chickenOrder)).isTrue();
-        assertThat(CHICKEN_ORDER.isSameMenu(CIDER_ORDER)).isFalse();
+        assertAll(
+                () -> assertThat(CHICKEN_ORDER.isSameMenu(chickenOrder)).isTrue(),
+                () -> assertThat(CHICKEN_ORDER.isSameMenu(CIDER_ORDER)).isFalse()
+        );
+    }
+
+    @DisplayName("치킨인지 여부를 확인")
+    @Test
+    void isChicken() {
+        assertAll(
+                () -> assertThat(CHICKEN_ORDER.isChicken()).isTrue(),
+                () -> assertThat(CIDER.isChicken()).isFalse()
+        );
+    }
+
+    @DisplayName("주문 총액을 계산")
+    @Test
+    void calculateTotalPrice() {
+        Order order = new Order(CHICKEN, ORDER_TEN);
+
+        assertThat(order.calculateTotalPrice()).isEqualTo(160_000);
     }
 }

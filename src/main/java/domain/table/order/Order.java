@@ -1,4 +1,4 @@
-package domain.table;
+package domain.table.order;
 
 import java.util.Objects;
 
@@ -23,11 +23,24 @@ public class Order {
         this.orderAmount = this.orderAmount.add(orderAmount);
     }
 
+    public boolean isChicken() {
+        return menu.isChicken();
+    }
+
+    public int calculateTotalPrice() {
+        return menu.multiply(orderAmount.getAmount());
+    }
+
     public Menu getMenu() {
         return menu;
     }
 
     public OrderAmount getOrderAmount() {
         return orderAmount;
+    }
+
+    @Override
+    public String toString() {
+        return menu.getName() + " " + orderAmount + " " + menu.getPrice();
     }
 }
