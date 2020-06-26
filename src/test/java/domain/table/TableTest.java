@@ -1,5 +1,6 @@
 package domain.table;
 
+import static domain.table.Fixture.CHICKEN_ORDER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -35,5 +36,15 @@ class TableTest {
         Table table = new Table(1);
 
         assertThat(table.isSameNumber(2)).isFalse();
+    }
+
+    @DisplayName("주문 추가")
+    @Test
+    void addOrder() {
+        Table table = new Table(1);
+
+        table.addOrder(CHICKEN_ORDER);
+
+        assertThat(table.getOrders().getOrders()).hasSize(1);
     }
 }

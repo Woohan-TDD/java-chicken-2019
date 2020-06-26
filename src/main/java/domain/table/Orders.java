@@ -8,10 +8,6 @@ import java.util.Optional;
 public class Orders {
     private final List<Order> orders = new ArrayList<>();
 
-    public List<Order> getOrders() {
-        return Collections.unmodifiableList(orders);
-    }
-
     public void add(final Order additionalOrder) {
         Optional<Order> maybeOrder = findOrderByMenu(additionalOrder);
         if (maybeOrder.isPresent()) {
@@ -25,5 +21,9 @@ public class Orders {
         return orders.stream()
                 .filter(order -> order.isSameMenu(additionalOrder))
                 .findFirst();
+    }
+
+    public List<Order> getOrders() {
+        return Collections.unmodifiableList(orders);
     }
 }
