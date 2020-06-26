@@ -1,6 +1,8 @@
-package domain;
+package domain.menu;
 
 import java.util.Objects;
+
+import domain.Category;
 
 public class Menu {
     private static final int MIN_NUMBER = 1;

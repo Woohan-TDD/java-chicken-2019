@@ -1,4 +1,4 @@
-package domain;
+package domain.table;
 
 public class Table {
     private static final int MIN_NUMBER = 1;
