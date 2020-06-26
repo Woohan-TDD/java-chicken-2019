@@ -4,6 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import java.util.List;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,7 +64,7 @@ class TableServiceTest {
     @DisplayName("특정 테이블의 금액을 지불")
     @Test
     void payment() {
-        int tableNumber = 2;
+        int tableNumber = 1;
         int menuNumber = 1;
         int amount = 10;
 
@@ -81,5 +84,13 @@ class TableServiceTest {
         assertThatThrownBy(() -> tableService.payment(3, 1))
                 .isInstanceOf(OrderNotFoundException.class)
                 .hasMessageContaining("주문 내역이 존재하지 않습니다");
+    }
+
+    @AfterEach
+    void tearDown() {
+        List<Table> tables = tableService.getTables();
+        for (Table table : tables) {
+            table.clear();
+        }
     }
 }
