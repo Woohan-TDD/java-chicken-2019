@@ -9,8 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import domain.Category;
-
 class MenuTest {
     private static final Menu CHICKEN = new Menu(1, "양념치킨", Category.CHICKEN, 16_000);
     private static final Menu CIDER = new Menu(2, "사이다", Category.BEVERAGE, 2_000);

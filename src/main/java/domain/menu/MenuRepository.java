@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import domain.Category;
-
 public class MenuRepository {
     private static final List<Menu> menus = new ArrayList<>();
 

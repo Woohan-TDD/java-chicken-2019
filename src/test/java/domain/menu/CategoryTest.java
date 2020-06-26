@@ -1,7 +1,7 @@
-package domain;
+package domain.menu;
 
-import static domain.Category.BEVERAGE;
-import static domain.Category.CHICKEN;
+import static domain.menu.Category.BEVERAGE;
+import static domain.menu.Category.CHICKEN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
