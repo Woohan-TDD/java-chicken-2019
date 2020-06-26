@@ -52,6 +52,18 @@ public class Menu {
         return category.isChicken();
     }
 
+    public int multiply(final int count) {
+        return price * count;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
     @Override
     public String toString() {
         return category + " " + number + " - " + name + " : " + price + "원";
