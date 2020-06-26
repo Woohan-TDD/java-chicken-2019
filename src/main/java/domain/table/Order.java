@@ -15,6 +15,10 @@ public class Order {
         this.orderAmount = orderAmount;
     }
 
+    public boolean isSameMenu(final Order that) {
+        return this.menu.equals(that.menu);
+    }
+
     public void addAmount(final OrderAmount orderAmount) {
         this.orderAmount = this.orderAmount.add(orderAmount);
     }
