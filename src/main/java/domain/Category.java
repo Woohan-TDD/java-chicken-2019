@@ -10,6 +10,10 @@ public enum Category {
         this.name = name;
     }
 
+    public boolean isChicken() {
+        return CHICKEN.equals(this);
+    }
+
     @Override
     public String toString() {
         return "[" + name + "]";
