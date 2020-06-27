@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.stream.Stream;
 
-public enum PaymentMethod {
+public enum PaymentMethod implements DiscountStrategy {
     CREDIT_CARD(1, 1.00),
     CASH(2, 0.95);
 
@@ -28,9 +28,10 @@ public enum PaymentMethod {
         return this.paymentNumber == number;
     }
 
-    public int applyDiscount(final long price) {
-        BigDecimal discountedPrice = discountRate.multiply(new BigDecimal(price));
+    @Override
+    public long discount(final long money) {
+        BigDecimal discountedPrice = discountRate.multiply(new BigDecimal(money));
         discountedPrice = discountedPrice.setScale(1, RoundingMode.HALF_UP);
-        return discountedPrice.intValue();
+        return discountedPrice.longValue();
     }
 }

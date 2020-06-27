@@ -30,7 +30,7 @@ class PaymentMethodTest {
     @CsvSource(value = {"CREDIT_CARD,10000", "CASH,9500"})
     @ParameterizedTest
     void applyDiscount(final PaymentMethod paymentMethod, final int expect) {
-        long actual = paymentMethod.applyDiscount(10_000);
+        long actual = paymentMethod.discount(10_000);
 
         assertThat(actual).isEqualTo(expect);
     }

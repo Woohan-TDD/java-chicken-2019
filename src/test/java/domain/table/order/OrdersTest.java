@@ -68,7 +68,7 @@ class OrdersTest {
         assertThat(orders.hasOrder()).isTrue();
     }
 
-    @DisplayName("치킨 할인을 적용한 구입 총액을 계산")
+    @DisplayName("구입 총액을 계산")
     @Test
     void calculateTotalPrice() {
         Order order1 = new Order(CHICKEN, ORDER_TEN);
@@ -76,7 +76,7 @@ class OrdersTest {
         orders.add(order1);
         orders.add(order2);
 
-        assertThat(orders.calculateTotalPrice()).isEqualTo(170_000);
+        assertThat(orders.calculateTotalPrice()).isEqualTo(180_000);
     }
 
     @DisplayName("주문을 모두 제거")

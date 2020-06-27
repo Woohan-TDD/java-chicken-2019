@@ -10,6 +10,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import domain.menu.MenuRepository;
 import domain.table.Table;
@@ -62,18 +64,19 @@ class TableServiceTest {
     }
 
     @DisplayName("특정 테이블의 금액을 지불")
-    @Test
-    void payment() {
+    @CsvSource(value = {"1, 150000", "2, 142500"})
+    @ParameterizedTest
+    void payment(final int paymentNumber, final long expect) {
         int tableNumber = 1;
         int menuNumber = 1;
         int amount = 10;
 
         tableService.addOrder(tableNumber, menuNumber, amount);
-        long payment = tableService.payment(tableNumber, 1);
+        long payment = tableService.payment(tableNumber, paymentNumber);
         Table table = tableService.findTableByNumber(tableNumber);
 
         assertAll(
-                () -> assertThat(payment).isEqualTo(150_000),
+                () -> assertThat(payment).isEqualTo(expect),
                 () -> assertThat(table.hasOrder()).isFalse()
         );
     }

@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class Orders {
-    private static final int DISCOUNT_UNIT = 10;
-    private static final int DISCOUNT_PRICE_PER_UNIT = 10000;
-
     private final List<Order> orders = new ArrayList<>();
 
     public void add(final Order additionalOrder) {
@@ -21,23 +18,12 @@ public class Orders {
     }
 
     public long calculateTotalPrice() {
-        long totalPrice = sumAllPrice();
-        return discountByChickenCount(totalPrice);
-    }
-
-    private long sumAllPrice() {
         return orders.stream()
                 .mapToLong(Order::calculateTotalPrice)
                 .sum();
     }
 
-    private long discountByChickenCount(final long totalPrice) {
-        int chickenCount = calculateTotalChickenCount();
-        long discountPrice = chickenCount / DISCOUNT_UNIT * DISCOUNT_PRICE_PER_UNIT;
-        return totalPrice - discountPrice;
-    }
-
-    private int calculateTotalChickenCount() {
+    public int countChickens() {
         return orders.stream()
                 .filter(Order::isChicken)
                 .mapToInt(order -> order.getOrderAmount().getAmount())

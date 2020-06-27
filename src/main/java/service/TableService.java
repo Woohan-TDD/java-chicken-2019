@@ -1,5 +1,6 @@
 package service;
 
+import java.util.Arrays;
 import java.util.List;
 
 import domain.menu.Menu;
@@ -9,6 +10,8 @@ import domain.table.TableRepository;
 import domain.table.order.Order;
 import domain.table.order.OrderAmount;
 import domain.table.order.OrderNotFoundException;
+import domain.table.payment.ChickenDiscountStrategy;
+import domain.table.payment.DiscountStrategies;
 import domain.table.payment.PaymentMethod;
 
 public class TableService {
@@ -38,11 +41,13 @@ public class TableService {
         Table table = findTableByNumber(tableNumber);
         validateOrders(table);
 
-        PaymentMethod paymentMethod = PaymentMethod.ofNumber(paymentNumber);
-        long totalPrice = table.calculateTotalPrice(paymentMethod);
+        long totalPrice = table.calculateTotalPrice();
+        long chickenCount = table.countChickens();
         table.clear();
 
-        return totalPrice;
+        DiscountStrategies discountStrategies = new DiscountStrategies(
+                Arrays.asList(new ChickenDiscountStrategy(chickenCount), PaymentMethod.ofNumber(paymentNumber)));
+        return discountStrategies.discount(totalPrice);
     }
 
     private void validateOrders(final Table table) {

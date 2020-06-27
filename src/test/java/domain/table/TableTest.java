@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import domain.table.order.Order;
 import domain.table.order.Orders;
-import domain.table.payment.PaymentMethod;
 
 class TableTest {
     @DisplayName("테이블 생성")
@@ -80,8 +79,8 @@ class TableTest {
         Order order = new Order(CHICKEN, ORDER_TEN);
 
         table.addOrder(order);
-        long totalPrice = table.calculateTotalPrice(PaymentMethod.CASH);
+        long totalPrice = table.calculateTotalPrice();
 
-        assertThat(totalPrice).isEqualTo(142_500);
+        assertThat(totalPrice).isEqualTo(160_000);
     }
 }

@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import domain.table.order.Order;
 import domain.table.order.Orders;
-import domain.table.payment.PaymentMethod;
 
 public class Table {
     private static final int MIN_NUMBER = 1;
@@ -42,9 +41,12 @@ public class Table {
         return orders.hasOrder();
     }
 
-    public long calculateTotalPrice(final PaymentMethod paymentMethod) {
-        long chickenDiscountedPrice = orders.calculateTotalPrice();
-        return paymentMethod.applyDiscount(chickenDiscountedPrice);
+    public long calculateTotalPrice() {
+        return orders.calculateTotalPrice();
+    }
+
+    public long countChickens() {
+        return orders.countChickens();
     }
 
     public void clear() {
