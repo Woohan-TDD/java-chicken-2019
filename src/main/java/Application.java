@@ -1,21 +1,28 @@
-import domain.Menu;
-import domain.MenuRepository;
-import domain.Table;
-import domain.TableRepository;
+import java.util.Scanner;
+
+import controller.ChickenController;
+import controller.PageController;
+import domain.menu.MenuRepository;
+import domain.table.TableRepository;
+import service.MenuService;
+import service.PaymentService;
+import service.TableOrderService;
 import view.InputView;
 import view.OutputView;
 
-import java.util.List;
-
 public class Application {
-    // TODO 구현 진행
-    public static void main(String[] args) {
-        final List<Table> tables = TableRepository.tables();
-        OutputView.printTables(tables);
+	public static void main(String[] args) {
+		MenuRepository menuRepository = new MenuRepository();
+		TableRepository tableRepository = new TableRepository();
+		InputView inputView = new InputView(new Scanner(System.in));
 
-        final int tableNumber = InputView.inputTableNumber();
+		ChickenController chickenController = new ChickenController(inputView,
+			new OutputView(), new MenuService(menuRepository),
+			new PaymentService(tableRepository), new TableOrderService(tableRepository, menuRepository));
 
-        final List<Menu> menus = MenuRepository.menus();
-        OutputView.printMenus(menus);
-    }
+		PageController pageController = new PageController(inputView, chickenController);
+		while (true) {
+			pageController.run();
+		}
+	}
 }
