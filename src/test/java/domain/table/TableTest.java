@@ -8,6 +8,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import domain.table.order.Order;
 import domain.table.order.Orders;
@@ -27,20 +29,13 @@ class TableTest {
                 .hasMessageContaining("테이블 번호는 양수만 입력 가능합니다");
     }
 
-    @DisplayName("입력받은 수와 테이블 번호가 같으면 true 반환")
-    @Test
-    void isSameNumber_NumberIsSame_ReturnTrue() {
+    @DisplayName("입력받은 수와 테이블 번호가 같은지 여부를 판단")
+    @CsvSource(value = {"1, true", "2, false"})
+    @ParameterizedTest
+    void isSameNumber_NumberIsSame_ReturnTrue(final int tableNumber, final boolean expect) {
         Table table = new Table(1);
 
-        assertThat(table.isSameNumber(1)).isTrue();
-    }
-
-    @DisplayName("입력받은 수와 테이블 번호가 다르면 false 반환")
-    @Test
-    void isSameNumber_NumberIsNotSame_ReturnFalse() {
-        Table table = new Table(1);
-
-        assertThat(table.isSameNumber(2)).isFalse();
+        assertThat(table.isSameNumber(tableNumber)).isEqualTo(expect);
     }
 
     @DisplayName("주문 추가")
@@ -62,7 +57,7 @@ class TableTest {
         assertThat(table.hasOrder()).isFalse();
     }
 
-    @DisplayName("주문이 있을 때 확인 메서드를 호출하면 false 반환")
+    @DisplayName("주문이 있을 때 확인 메서드를 호출하면 true 반환")
     @Test
     void hasOrder_HasAnyOrder_ReturnTrue() {
         Table table = new Table(1);
