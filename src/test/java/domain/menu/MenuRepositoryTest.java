@@ -2,17 +2,11 @@ package domain.menu;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class MenuRepositoryTest {
-    private MenuRepository menuRepository;
-
-    @BeforeEach
-    void setUp() {
-        menuRepository = new MenuRepository();
-    }
+    private static final MenuRepository menuRepository = new MenuRepository();
 
     @DisplayName("모든 메뉴를 반환")
     @Test

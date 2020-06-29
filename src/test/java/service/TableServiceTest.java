@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,10 +19,9 @@ import domain.table.TableRepository;
 import domain.table.order.OrderNotFoundException;
 
 class TableServiceTest {
-    private TableService tableService;
+    private static final TableService tableService;
 
-    @BeforeEach
-    void setUp() {
+    static {
         TableRepository tableRepository = new TableRepository();
         MenuRepository menuRepository = new MenuRepository();
         MenuService menuService = new MenuService(menuRepository);

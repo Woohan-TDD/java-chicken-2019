@@ -3,7 +3,6 @@ package service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +10,9 @@ import domain.menu.MenuNotFoundException;
 import domain.menu.MenuRepository;
 
 class MenuServiceTest {
-    private MenuService menuService;
+    private static final MenuService menuService;
 
-    @BeforeEach
-    void setUp() {
+    static {
         MenuRepository menuRepository = new MenuRepository();
         menuService = new MenuService(menuRepository);
     }

@@ -2,17 +2,11 @@ package domain.table;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class TableRepositoryTest {
-    private TableRepository tableRepository;
-
-    @BeforeEach
-    void setUp() {
-        tableRepository = new TableRepository();
-    }
+    private static final TableRepository tableRepository = new TableRepository();
 
     @DisplayName("모든 테이블을 반환")
     @Test
