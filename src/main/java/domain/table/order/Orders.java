@@ -12,9 +12,9 @@ public class Orders {
         Optional<Order> maybeOrder = findOrderByMenu(additionalOrder);
         if (maybeOrder.isPresent()) {
             maybeOrder.ifPresent(order -> order.addAmount(additionalOrder.getOrderAmount()));
-        } else {
-            orders.add(additionalOrder);
+            return;
         }
+        orders.add(additionalOrder);
     }
 
     public long calculateTotalPrice() {

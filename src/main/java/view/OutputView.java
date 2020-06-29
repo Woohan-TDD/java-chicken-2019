@@ -69,9 +69,9 @@ public class OutputView {
         for (Table table : tables) {
             if (table.hasOrder()) {
                 System.out.print(PAYABLE_BOTTOM_LINE);
-            } else {
-                System.out.print(EMPTY_TABLE_BOTTOM_LINE);
+                continue;
             }
+            System.out.print(EMPTY_TABLE_BOTTOM_LINE);
         }
     }
 
