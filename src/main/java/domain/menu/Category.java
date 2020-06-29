@@ -11,7 +11,7 @@ public enum Category {
     }
 
     public boolean isChicken() {
-        return CHICKEN.equals(this);
+        return this == CHICKEN;
     }
 
     @Override
