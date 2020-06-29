@@ -5,7 +5,6 @@ import java.util.List;
 import domain.menu.Menu;
 import domain.table.Table;
 import domain.table.order.OrderAmount;
-import domain.table.order.OrderNotFoundException;
 import domain.table.payment.PaymentMethod;
 import service.MenuService;
 import service.TableService;
@@ -35,8 +34,7 @@ public class OrderController {
     }
 
     public void paymentTable() {
-        Table table = getTable();
-        validateOrders(table);
+        Table table = getOrderExistTable();
         outputView.printOrders(table);
 
         int paymentType = getPaymentType();
@@ -51,6 +49,14 @@ public class OrderController {
 
         int tableNumber = inputView.inputTableNumber();
         return tableService.getTableByNumber(tableNumber);
+    }
+
+    private Table getOrderExistTable() {
+        List<Table> tables = tableService.getTables();
+        outputView.printTables(tables);
+
+        int tableNumber = inputView.inputTableNumber();
+        return tableService.getOrderExistTableByNumber(tableNumber);
     }
 
     private Menu getMenu() {
@@ -71,11 +77,5 @@ public class OrderController {
         int orderAmount = inputView.inputOrderAmount();
         new OrderAmount(orderAmount);
         return orderAmount;
-    }
-
-    private void validateOrders(final Table table) {
-        if (!table.hasOrder()) {
-            throw new OrderNotFoundException("주문 내역이 존재하지 않습니다.\n");
-        }
     }
 }

@@ -51,15 +51,21 @@ public class TableService {
         return discountedMoney;
     }
 
-    private void validateOrders(final Table table) {
-        if (!table.hasOrder()) {
-            throw new OrderNotFoundException("주문 내역이 존재하지 않습니다.\n");
-        }
-    }
-
     public Table getTableByNumber(final int tableNumber) {
         return tableRepository.findTableByNumber(tableNumber)
                 .orElseThrow(() -> new TableNotFoundException("테이블을 찾을 수 없습니다.\n" +
                         "입력 값: " + tableNumber));
+    }
+
+    public Table getOrderExistTableByNumber(final int tableNumber) {
+        Table table = getTableByNumber(tableNumber);
+        validateOrders(table);
+        return table;
+    }
+
+    private void validateOrders(final Table table) {
+        if (!table.hasOrder()) {
+            throw new OrderNotFoundException("주문 내역이 존재하지 않습니다.\n");
+        }
     }
 }
