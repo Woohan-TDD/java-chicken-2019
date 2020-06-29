@@ -29,7 +29,7 @@ public class InputView {
 
     public int inputOrderAmount() {
         System.out.println();
-        System.out.println("## 메뉴의 수량을 입하세요.");
+        System.out.println("## 메뉴의 수량을 입력하세요.");
         return Integer.parseInt(scanner.nextLine());
     }
 
