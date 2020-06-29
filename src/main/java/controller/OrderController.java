@@ -26,49 +26,39 @@ public class OrderController {
         this.outputView = outputView;
     }
 
-    public void createOrUpdateOrder() {
-        int tableNumber = getTableNumber(false);
-        int menuNumber = getMenuNumber();
+    public void addOrderToTable() {
+        Table table = getTable();
+        Menu menu = getMenu();
         int orderAmount = getOrderAmount();
 
-        tableService.addOrder(tableNumber, menuNumber, orderAmount);
+        tableService.addOrder(table.getNumber(), menu.getNumber(), orderAmount);
     }
 
-    public void deleteOrder() {
-        int tableNumber = getTableNumber(true);
+    public void paymentTable() {
+        Table table = getTable();
+        validateOrders(table);
+        outputView.printOrders(table);
+
         int paymentType = getPaymentType();
 
-        long totalPrice = tableService.payment(tableNumber, paymentType);
+        long totalPrice = tableService.payment(table.getNumber(), paymentType);
         outputView.printTotalPrice(totalPrice);
     }
 
-    private int getTableNumber(final boolean needPrintOrders) {
+    private Table getTable() {
         List<Table> tables = tableService.getTables();
         outputView.printTables(tables);
 
         int tableNumber = inputView.inputTableNumber();
-        Table table = tableService.getTableByNumber(tableNumber);
-
-        if (needPrintOrders) {
-            validateOrders(table);
-            outputView.printOrders(table);
-        }
-        return tableNumber;
+        return tableService.getTableByNumber(tableNumber);
     }
 
-    private int getMenuNumber() {
+    private Menu getMenu() {
         List<Menu> menus = menuService.getMenus();
         outputView.printMenus(menus);
 
         int menuNumber = inputView.inputMenuNumber();
-        menuService.getMenuByNumber(menuNumber);
-        return menuNumber;
-    }
-
-    private void validateOrders(final Table table) {
-        if (!table.hasOrder()) {
-            throw new OrderNotFoundException("주문 내역이 존재하지 않습니다.\n");
-        }
+        return menuService.getMenuByNumber(menuNumber);
     }
 
     private int getPaymentType() {
@@ -81,5 +71,11 @@ public class OrderController {
         int orderAmount = inputView.inputOrderAmount();
         new OrderAmount(orderAmount);
         return orderAmount;
+    }
+
+    private void validateOrders(final Table table) {
+        if (!table.hasOrder()) {
+            throw new OrderNotFoundException("주문 내역이 존재하지 않습니다.\n");
+        }
     }
 }

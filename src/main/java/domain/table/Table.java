@@ -53,6 +53,10 @@ public class Table {
         orders.clear();
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     public Orders getOrders() {
         return orders;
     }

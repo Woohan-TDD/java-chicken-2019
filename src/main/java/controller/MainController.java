@@ -24,8 +24,8 @@ public class MainController {
     }
 
     private void initRoutes(final OrderController orderController) {
-        featureMap.put(1, orderController::createOrUpdateOrder);
-        featureMap.put(2, orderController::deleteOrder);
+        featureMap.put(1, orderController::addOrderToTable);
+        featureMap.put(2, orderController::paymentTable);
         featureMap.put(3, this::exitProgram);
     }
 
