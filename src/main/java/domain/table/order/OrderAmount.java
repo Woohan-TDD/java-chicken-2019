@@ -47,4 +47,8 @@ public class OrderAmount {
     public String toString() {
         return String.valueOf(amount);
     }
+
+    public int multiply(final int price) {
+        return amount * price;
+    }
 }

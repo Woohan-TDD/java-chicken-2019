@@ -28,7 +28,7 @@ public class Order {
     }
 
     public int calculateTotalPrice() {
-        return menu.multiply(orderAmount.getAmount());
+        return orderAmount.multiply(menu.getPrice());
     }
 
     public Menu getMenu() {

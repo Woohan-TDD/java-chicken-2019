@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -44,5 +45,12 @@ class OrderAmountTest {
         assertThatThrownBy(() -> orderAmount.add(addedOrderAmount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("주문 개수의 범위를 벗어났습니다");
+    }
+
+    @DisplayName("개수를 입력받아 금액을 곱한 값을 반환")
+    @Test
+    void multiply() {
+        OrderAmount orderAmount = new OrderAmount(5);
+        assertThat(orderAmount.multiply(16_000)).isEqualTo(80_000);
     }
 }

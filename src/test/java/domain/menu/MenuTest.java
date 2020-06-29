@@ -76,10 +76,4 @@ class MenuTest {
     void isChicken_CategoryIsNotChicken_ReturnFalse() {
         assertThat(CIDER.isChicken()).isFalse();
     }
-
-    @DisplayName("개수를 입력받아 금액을 곱한 값을 반환")
-    @Test
-    void multiply() {
-        assertThat(CHICKEN.multiply(5)).isEqualTo(80_000);
-    }
 }
