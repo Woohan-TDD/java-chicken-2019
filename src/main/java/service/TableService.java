@@ -43,11 +43,12 @@ public class TableService {
 
         long totalPrice = table.calculateTotalPrice();
         long chickenCount = table.countChickens();
-        table.clear();
 
         DiscountStrategies discountStrategies = new DiscountStrategies(
                 Arrays.asList(new ChickenDiscountStrategy(chickenCount), PaymentMethod.ofNumber(paymentNumber)));
-        return discountStrategies.discount(totalPrice);
+        long discountedMoney = discountStrategies.discount(totalPrice);
+        table.clear();
+        return discountedMoney;
     }
 
     private void validateOrders(final Table table) {
