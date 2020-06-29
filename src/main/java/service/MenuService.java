@@ -17,7 +17,7 @@ public class MenuService {
         return menuRepository.findAll();
     }
 
-    public Menu findMenuByNumber(final int menuNumber) {
+    public Menu getMenuByNumber(final int menuNumber) {
         return menuRepository.findMenuByNumber(menuNumber)
                 .orElseThrow(() -> new MenuNotFoundException("메뉴를 찾을 수 없습니다.\n" +
                         "입력 값: " + menuNumber));

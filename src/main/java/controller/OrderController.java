@@ -47,7 +47,7 @@ public class OrderController {
         outputView.printTables(tables);
 
         int tableNumber = inputView.inputTableNumber();
-        Table table = tableService.findTableByNumber(tableNumber);
+        Table table = tableService.getTableByNumber(tableNumber);
 
         if (needPrintOrders) {
             validateOrders(table);
@@ -61,7 +61,7 @@ public class OrderController {
         outputView.printMenus(menus);
 
         int menuNumber = inputView.inputMenuNumber();
-        menuService.findMenuByNumber(menuNumber);
+        menuService.getMenuByNumber(menuNumber);
         return menuNumber;
     }
 

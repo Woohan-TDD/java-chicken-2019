@@ -39,13 +39,13 @@ class TableServiceTest {
     @DisplayName("테이블 번호로 테이블 하나를 찾음")
     @Test
     void findTableByNumber() {
-        assertThat(tableService.findTableByNumber(1)).isNotNull();
+        assertThat(tableService.getTableByNumber(1)).isNotNull();
     }
 
     @DisplayName("테이블 번호가 일치하는 테이블이 존재하지 않으면 예외 발생")
     @Test
     void findTableByNumber_NotExistTable_ExceptionThrown() {
-        assertThatThrownBy(() -> tableService.findTableByNumber(20))
+        assertThatThrownBy(() -> tableService.getTableByNumber(20))
                 .isInstanceOf(TableNotFoundException.class)
                 .hasMessageContaining("테이블을 찾을 수 없습니다");
     }
@@ -59,7 +59,7 @@ class TableServiceTest {
 
         tableService.addOrder(tableNumber, menuNumber, amount);
 
-        Table table = tableService.findTableByNumber(tableNumber);
+        Table table = tableService.getTableByNumber(tableNumber);
         assertThat(table.hasOrder()).isTrue();
     }
 
@@ -73,7 +73,7 @@ class TableServiceTest {
 
         tableService.addOrder(tableNumber, menuNumber, amount);
         long payment = tableService.payment(tableNumber, paymentNumber);
-        Table table = tableService.findTableByNumber(tableNumber);
+        Table table = tableService.getTableByNumber(tableNumber);
 
         assertAll(
                 () -> assertThat(payment).isEqualTo(expect),

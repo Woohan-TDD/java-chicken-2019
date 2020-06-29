@@ -28,8 +28,8 @@ public class TableService {
     }
 
     public void addOrder(final int tableNumber, final int menuNumber, final int amount) {
-        Table table = findTableByNumber(tableNumber);
-        Menu menu = menuService.findMenuByNumber(menuNumber);
+        Table table = getTableByNumber(tableNumber);
+        Menu menu = menuService.getMenuByNumber(menuNumber);
 
         OrderAmount orderAmount = new OrderAmount(amount);
         Order order = new Order(menu, orderAmount);
@@ -38,7 +38,7 @@ public class TableService {
     }
 
     public long payment(final int tableNumber, final int paymentNumber) {
-        Table table = findTableByNumber(tableNumber);
+        Table table = getTableByNumber(tableNumber);
         validateOrders(table);
 
         long totalPrice = table.calculateTotalPrice();
@@ -56,7 +56,7 @@ public class TableService {
         }
     }
 
-    public Table findTableByNumber(final int tableNumber) {
+    public Table getTableByNumber(final int tableNumber) {
         return tableRepository.findTableByNumber(tableNumber)
                 .orElseThrow(() -> new TableNotFoundException("테이블을 찾을 수 없습니다.\n" +
                         "입력 값: " + tableNumber));

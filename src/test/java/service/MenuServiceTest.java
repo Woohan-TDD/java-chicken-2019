@@ -28,13 +28,13 @@ class MenuServiceTest {
     @DisplayName("한 메뉴를 가져옴")
     @Test
     void findMenuByNumber() {
-        assertThat(menuService.findMenuByNumber(1)).isNotNull();
+        assertThat(menuService.getMenuByNumber(1)).isNotNull();
     }
 
     @DisplayName("메뉴를 가져올 때 존재하지 않으면 예외 발생")
     @Test
     void findMenuByNumber_NotExistMenu_ExceptionThrown() {
-        assertThatThrownBy(() -> menuService.findMenuByNumber(20))
+        assertThatThrownBy(() -> menuService.getMenuByNumber(20))
                 .isInstanceOf(MenuNotFoundException.class)
                 .hasMessageContaining("메뉴를 찾을 수 없습니다");
     }
