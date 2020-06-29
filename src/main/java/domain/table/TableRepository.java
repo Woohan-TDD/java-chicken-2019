@@ -1,8 +1,9 @@
-package domain;
+package domain.table;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TableRepository {
     private static final List<Table> tables = new ArrayList<>();
@@ -16,7 +17,13 @@ public class TableRepository {
         tables.add(new Table(8));
     }
 
-    public static List<Table> tables() {
+    public List<Table> findAll() {
         return Collections.unmodifiableList(tables);
+    }
+
+    public Optional<Table> findTableByNumber(final int number) {
+        return tables.stream()
+                .filter(table -> table.isSameNumber(number))
+                .findFirst();
     }
 }

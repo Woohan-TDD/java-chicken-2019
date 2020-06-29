@@ -1,21 +1,22 @@
-import domain.Menu;
-import domain.MenuRepository;
-import domain.Table;
-import domain.TableRepository;
-import view.InputView;
-import view.OutputView;
-
-import java.util.List;
+import config.Injection;
+import controller.MainController;
 
 public class Application {
-    // TODO 구현 진행
+    private final MainController mainController;
+
+    public Application(final MainController mainController) {
+        this.mainController = mainController;
+    }
+
     public static void main(String[] args) {
-        final List<Table> tables = TableRepository.tables();
-        OutputView.printTables(tables);
+        Injection injection = new Injection();
+        Application application = new Application(injection.provideMainController());
+        application.run();
+    }
 
-        final int tableNumber = InputView.inputTableNumber();
-
-        final List<Menu> menus = MenuRepository.menus();
-        OutputView.printMenus(menus);
+    public void run() {
+        while (true) {
+            mainController.run();
+        }
     }
 }
