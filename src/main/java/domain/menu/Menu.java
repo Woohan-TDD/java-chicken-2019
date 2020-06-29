@@ -12,14 +12,18 @@ public class Menu {
     private final int price;
 
     public Menu(final int number, final String name, final Category category, final int price) {
-        validateNumber(number);
-        validateName(name);
-        Objects.requireNonNull(category, "카테고리가 null입니다.");
-        validatePrice(price);
+        validate(number, name, category, price);
         this.number = number;
         this.name = name;
         this.category = category;
         this.price = price;
+    }
+
+    private void validate(final int number, final String name, final Category category, final int price) {
+        validateNumber(number);
+        validateName(name);
+        Objects.requireNonNull(category, "카테고리가 null입니다.");
+        validatePrice(price);
     }
 
     private void validateNumber(final int number) {
