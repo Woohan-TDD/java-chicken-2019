@@ -39,6 +39,8 @@ public class MainController {
             outputView.printFeatures();
             int featureNumber = inputView.inputFeatureNumber();
             route(featureNumber);
+        } catch (NumberFormatException exception) {
+            outputView.printWrongInputMessage();
         } catch (Exception exception) {
             outputView.printUnknownFeature(exception.getMessage());
         }

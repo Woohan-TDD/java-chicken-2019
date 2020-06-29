@@ -87,4 +87,9 @@ public class OutputView {
         System.out.println("## 최종 결제할 금액");
         System.out.println(totalPrice + "원");
     }
+
+    public void printWrongInputMessage() {
+        System.out.println();
+        System.out.println("## 잘못된 입력입니다. 다시 시도하세요.");
+    }
 }
