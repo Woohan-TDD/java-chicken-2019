@@ -11,7 +11,8 @@ public class Orders {
     public void add(final Order additionalOrder) {
         Optional<Order> maybeOrder = findOrderByMenu(additionalOrder);
         if (maybeOrder.isPresent()) {
-            maybeOrder.ifPresent(order -> order.addAmount(additionalOrder.getOrderAmount()));
+            Order order = maybeOrder.get();
+            order.addAmount(additionalOrder.getOrderAmount());
             return;
         }
         orders.add(additionalOrder);
