@@ -16,11 +16,11 @@ public class ChickenDiscountStrategyTest {
     }
 
     @DisplayName("치킨 할인 적용")
-    @CsvSource(value = {"5, 50000", "10, 40000"})
+    @CsvSource(value = {"5, 1000000", "10, 990000", "55, 950000", "60, 940000"})
     @ParameterizedTest
     void discount(final int chickenCount, final long expect) {
         DiscountStrategy discountStrategy = new ChickenDiscountStrategy(chickenCount);
 
-        assertThat(discountStrategy.discount(50000)).isEqualTo(expect);
+        assertThat(discountStrategy.discount(1_000_000)).isEqualTo(expect);
     }
 }
