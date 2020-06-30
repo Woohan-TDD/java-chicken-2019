@@ -1,6 +1,7 @@
-package domain;
+package domain.menu;
 
 public class Menu {
+
     private final int number;
     private final String name;
     private final Category category;
@@ -13,8 +14,24 @@ public class Menu {
         this.price = price;
     }
 
+    public boolean isSameNumber(final int number) {
+        return this.number == number;
+    }
+
     @Override
     public String toString() {
         return category + " " + number + " - " + name + " : " + price + "원";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }
