@@ -2,21 +2,14 @@ package domain;
 
 import java.util.Arrays;
 
-import controller.ExitController;
-import controller.OrderController;
-import controller.PaymentController;
 import controller.RunController;
-import domain.menu.MenuRepository;
-import domain.table.TableRepository;
-import service.MenuService;
-import service.TableService;
+import utils.Injection;
 
 public enum Function {
 
-	ORDER(1, new OrderController(new MenuService(new MenuRepository()),
-		new TableService(new TableRepository(), new MenuRepository()))),
-	PAYMENT(2, new PaymentController(new TableService(new TableRepository(), new MenuRepository()))),
-	EXIT(3, new ExitController());
+	ORDER(1, Injection.orderController),
+	PAYMENT(2, Injection.paymentController),
+	EXIT(3, Injection.exitController);
 
 	private final int number;
 	private final RunController runController;
