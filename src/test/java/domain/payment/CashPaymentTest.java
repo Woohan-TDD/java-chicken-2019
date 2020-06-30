@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import domain.menu.Menu;
 import domain.menu.MenuRepository;
-import domain.payment.discount.CashDisCount;
-import domain.payment.discount.ChickenSizeDisCount;
+import domain.payment.discount.CashDiscount;
+import domain.payment.discount.ChickenSizeDiscount;
 import domain.table.OrderHistories;
 import domain.table.OrderHistory;
 
@@ -23,7 +23,7 @@ class CashPaymentTest {
 
 	@BeforeEach
 	void setUp() {
-		cashPayment = new CashPayment(Arrays.asList(new ChickenSizeDisCount(), new CashDisCount()));
+		cashPayment = new CashPayment(Arrays.asList(new ChickenSizeDiscount(), new CashDiscount()));
 	}
 
 	@DisplayName("치킨이 9마리 이하일때 할인 없이 금액이 나오는지 확인하는 테스트")

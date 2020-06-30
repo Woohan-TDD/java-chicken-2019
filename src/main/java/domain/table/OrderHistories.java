@@ -23,8 +23,7 @@ public class OrderHistories {
 	public int getChickenCount() {
 		return orderHistories.stream()
 			.filter(orderHistory -> orderHistory.isSameCategory(Category.CHICKEN))
-			.map(OrderHistory::getQuantity)
-			.mapToInt(n -> n)
+			.mapToInt(OrderHistory::getQuantity)
 			.sum();
 	}
 
@@ -42,7 +41,7 @@ public class OrderHistories {
 			.count();
 		long totalMenuCount = orderedMenuCount + orderHistory.getQuantity();
 
-		if(totalMenuCount >= MAX_MENU_COUNT){
+		if(totalMenuCount > MAX_MENU_COUNT){
 			throw new IllegalArgumentException("한 메뉴당 99까지만 주문할 수 있습니다. menu = " + orderHistory.getMenu());
 		}
 	}

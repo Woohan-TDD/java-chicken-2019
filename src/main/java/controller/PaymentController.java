@@ -2,7 +2,6 @@ package controller;
 
 import java.math.BigDecimal;
 
-import domain.payment.Payment;
 import domain.table.Table;
 import service.TableService;
 import view.InputView;
@@ -19,12 +18,9 @@ public class PaymentController implements RunController {
 	public void run() {
 		try {
 			int tableNumber = getTableNumber();
-			Table table = tableService.findByNumber(tableNumber);
-			int paymentNumber = getPaymentNumber(table);
-			Payment payment = Payment.of(paymentNumber);
-			BigDecimal account = payment.pay(table.getOrderHistories());
+			int paymentNumber = getPaymentNumber(tableService.findByNumber(tableNumber));
+			BigDecimal account = tableService.calculatePayment(tableNumber, paymentNumber);
 			OutputView.printResultAccount(account);
-			tableService.deleteOrderHistoriesByNumber(tableNumber);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}

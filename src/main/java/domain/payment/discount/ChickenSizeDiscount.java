@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import domain.table.OrderHistories;
 
-public class ChickenSizeDisCount implements DisCountStrategy{
+public class ChickenSizeDiscount implements DiscountStrategy {
 
 	private static final int CHICKEN_SIZE_DISCOUNT_MONEY = 10000;
 	private static final int CHICKEN_SIZE_DISCOUNT_AMOUNT = 10;

@@ -3,6 +3,7 @@ package domain.table;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class TableRepository {
 	private static final List<Table> tables = new ArrayList<>();
@@ -21,14 +22,13 @@ public class TableRepository {
 	}
 
 	public void updateOrderHistoryByNumber(final int number, final OrderHistory orderHistory) {
-		Table table = findByNumber(number);
-		table.addOrderHistory(orderHistory);
+		Optional<Table> table = findByNumber(number);
+		table.ifPresent(value -> value.addOrderHistory(orderHistory));
 	}
 
-	public Table findByNumber(int number) {
+	public Optional<Table> findByNumber(int number) {
 		return findAll().stream()
 			.filter(table -> table.isSameNumber(number))
-			.findFirst()
-			.orElseThrow(() -> new IllegalArgumentException("해당 테이블을 찾을 수 없습니다. number = " + number));
+			.findFirst();
 	}
 }

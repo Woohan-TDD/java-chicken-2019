@@ -14,7 +14,9 @@ class TableRepositoryTest {
 	@ParameterizedTest
 	@ValueSource(ints = {1, 2, 3, 5, 6, 8})
 	void findByNumberTest(int number) {
-		assertThat(tableRepository.findByNumber(number).getNumber())
+		assertThat(tableRepository.findByNumber(number)
+			.orElseThrow(() -> new IllegalArgumentException("해당 테이블을 찾을 수 없습니다. number = " + number))
+			.getNumber())
 			.isEqualTo(number);
 	}
 
@@ -22,8 +24,6 @@ class TableRepositoryTest {
 	@ParameterizedTest
 	@ValueSource(ints = {4, 7, 9})
 	void notFindByNumberTest(int number) {
-		assertThatThrownBy(() -> tableRepository.findByNumber(number))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessage("해당 테이블을 찾을 수 없습니다. number = " + number);
+		assertThat(tableRepository.findByNumber(number)).isEmpty();
 	}
 }

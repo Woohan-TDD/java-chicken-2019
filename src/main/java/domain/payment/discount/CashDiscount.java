@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 import domain.table.OrderHistories;
 
-public class CashDisCount implements DisCountStrategy{
+public class CashDiscount implements DiscountStrategy {
 
 	private static final String CASH_DISCOUNT_PERCENT = "0.95";
 

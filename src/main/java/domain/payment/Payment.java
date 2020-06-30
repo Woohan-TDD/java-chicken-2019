@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 
-import domain.payment.discount.CashDisCount;
-import domain.payment.discount.ChickenSizeDisCount;
+import domain.payment.discount.CashDiscount;
+import domain.payment.discount.ChickenSizeDiscount;
 import domain.table.OrderHistories;
 
 public enum Payment {
 
-	CARD(1, new CardPayment(Collections.singletonList(new ChickenSizeDisCount()))),
-	CASH(2, new CardPayment(Arrays.asList(new ChickenSizeDisCount(), new CashDisCount())));
+	CARD(1, new CardPayment(Collections.singletonList(new ChickenSizeDiscount()))),
+	CASH(2, new CardPayment(Arrays.asList(new ChickenSizeDiscount(), new CashDiscount())));
 
 	private final int number;
 	private final PaymentStrategy paymentStrategy;

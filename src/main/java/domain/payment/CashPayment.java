@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Optional;
 
 import domain.menu.Category;
-import domain.payment.discount.CashDisCount;
-import domain.payment.discount.ChickenSizeDisCount;
-import domain.payment.discount.DisCountStrategy;
+import domain.payment.discount.CashDiscount;
+import domain.payment.discount.ChickenSizeDiscount;
+import domain.payment.discount.DiscountStrategy;
 import domain.table.OrderHistories;
 import domain.table.OrderHistory;
 
 public class CashPayment implements PaymentStrategy {
-	private final List<DisCountStrategy> disCountStrategies;
+	private final List<DiscountStrategy> disCountStrategies;
 
-	public CashPayment(final List<DisCountStrategy> disCountStrategies) {
+	public CashPayment(final List<DiscountStrategy> disCountStrategies) {
 		this.disCountStrategies = disCountStrategies;
 	}
 
@@ -23,7 +23,7 @@ public class CashPayment implements PaymentStrategy {
 		BigDecimal paymentAmountOfChicken = calculatePaymentAmountOfChicken(orderHistories);
 		BigDecimal paymentAmountOfTotal = paymentAmountOfChicken.add(calculatePaymentAmountOfBeverage(orderHistories));
 
-		Optional<DisCountStrategy> disCount = findDisCountStrategy(CashDisCount.class);
+		Optional<DiscountStrategy> disCount = findDiscountStrategy(disCountStrategies,CashDiscount.class);
 		if (disCount.isPresent()) {
 			return disCount.get().calculateDiscount(paymentAmountOfTotal, orderHistories);
 		}
@@ -37,7 +37,7 @@ public class CashPayment implements PaymentStrategy {
 			.mapToLong(OrderHistory::calculatePaymentAmount)
 			.sum();
 
-		Optional<DisCountStrategy> disCount = findDisCountStrategy(ChickenSizeDisCount.class);
+		Optional<DiscountStrategy> disCount = findDiscountStrategy(disCountStrategies , ChickenSizeDiscount.class);
 		if (disCount.isPresent()) {
 			return disCount.get().calculateDiscount(new BigDecimal(chickenPaymentAmount), orderHistories);
 		}
@@ -54,11 +54,5 @@ public class CashPayment implements PaymentStrategy {
 			.sum();
 
 		return new BigDecimal(beveragePaymentAmount);
-	}
-
-	private Optional<DisCountStrategy> findDisCountStrategy(Class<? extends DisCountStrategy> disCountStrategy) {
-		return disCountStrategies.stream()
-			.filter(disCountStrategyValue -> disCountStrategyValue.getClass() == disCountStrategy)
-			.findFirst();
 	}
 }

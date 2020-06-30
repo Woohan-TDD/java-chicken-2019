@@ -1,9 +1,11 @@
 package service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import domain.menu.Menu;
 import domain.menu.MenuRepository;
+import domain.payment.Payment;
 import domain.table.OrderHistory;
 import domain.table.Table;
 import domain.table.TableRepository;
@@ -19,7 +21,8 @@ public class TableService {
 	}
 
 	public Table findByNumber(final int number) {
-		return tableRepository.findByNumber(number);
+		return tableRepository.findByNumber(number)
+			.orElseThrow(() -> new IllegalArgumentException("해당 테이블을 찾을 수 없습니다. number = " + number));
 	}
 
 	public List<Table> findTables() {
@@ -33,7 +36,16 @@ public class TableService {
 	}
 
 	public void deleteOrderHistoriesByNumber(final int number) {
-		Table table = tableRepository.findByNumber(number);
+		Table table = tableRepository.findByNumber(number)
+			.orElseThrow(() -> new IllegalArgumentException("해당 테이블을 찾을 수 없습니다. number = " + number));
 		table.clearOrderHistories();
+	}
+
+	public BigDecimal calculatePayment(final int tableNumber, final int paymentNumber) {
+		Table table = tableRepository.findByNumber(tableNumber)
+			.orElseThrow(() -> new IllegalArgumentException("해당 테이블을 찾을 수 없습니다. number = " + tableNumber));
+		Payment payment = Payment.of(paymentNumber);
+		table.clearOrderHistories();
+		return payment.pay(table.getOrderHistories());
 	}
 }

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import domain.menu.Menu;
 import domain.menu.MenuRepository;
-import domain.payment.discount.ChickenSizeDisCount;
+import domain.payment.discount.ChickenSizeDiscount;
 import domain.table.OrderHistories;
 import domain.table.OrderHistory;
 
@@ -23,7 +23,7 @@ class CardPaymentTest {
 
 	@BeforeEach
 	void setUp() {
-		cardPayment = new CardPayment(Collections.singletonList(new ChickenSizeDisCount()));
+		cardPayment = new CardPayment(Collections.singletonList(new ChickenSizeDiscount()));
 	}
 
 	@DisplayName("치킨이 9마리 이하일때 할인 없이 금액이 나오는지 확인하는 테스트")

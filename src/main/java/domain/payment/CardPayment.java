@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Optional;
 
 import domain.menu.Category;
-import domain.payment.discount.ChickenSizeDisCount;
-import domain.payment.discount.DisCountStrategy;
+import domain.payment.discount.ChickenSizeDiscount;
+import domain.payment.discount.DiscountStrategy;
 import domain.table.OrderHistories;
 import domain.table.OrderHistory;
 
 public class CardPayment implements PaymentStrategy {
 
-	private final List<DisCountStrategy> disCountStrategies;
+	private final List<DiscountStrategy> disCountStrategies;
 
-	public CardPayment(final List<DisCountStrategy> disCountStrategies) {
+	public CardPayment(final List<DiscountStrategy> disCountStrategies) {
 		this.disCountStrategies = disCountStrategies;
 	}
 
@@ -34,7 +34,7 @@ public class CardPayment implements PaymentStrategy {
 			.mapToLong(OrderHistory::calculatePaymentAmount)
 			.sum();
 
-		Optional<DisCountStrategy> disCount = findDisCountStrategy(ChickenSizeDisCount.class);
+		Optional<DiscountStrategy> disCount = findDiscountStrategy(disCountStrategies , ChickenSizeDiscount.class);
 
 		if (disCount.isPresent()) {
 			return disCount.get()
@@ -42,12 +42,6 @@ public class CardPayment implements PaymentStrategy {
 		}
 
 		return new BigDecimal(String.valueOf(chickenPaymentAmount));
-	}
-
-	private Optional<DisCountStrategy> findDisCountStrategy(Class<? extends DisCountStrategy> disCountStrategy) {
-		return disCountStrategies.stream()
-			.filter(disCountStrategyValue -> disCountStrategyValue.getClass() == disCountStrategy)
-			.findFirst();
 	}
 
 	private BigDecimal calculatePaymentAmountOfBeverage(final OrderHistories orderHistories) {
