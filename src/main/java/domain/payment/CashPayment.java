@@ -49,8 +49,7 @@ public class CashPayment implements PaymentStrategy {
 		long beveragePaymentAmount = orderHistories.getOrderHistories()
 			.stream()
 			.filter(orderHistory -> orderHistory.isSameCategory(Category.BEVERAGE))
-			.map(OrderHistory::calculatePaymentAmount)
-			.mapToLong(n -> n)
+			.mapToLong(OrderHistory::calculatePaymentAmount)
 			.sum();
 
 		return new BigDecimal(beveragePaymentAmount);

@@ -25,6 +25,12 @@ class TableServiceTest {
 		assertThat(tableService.findByNumber(1)).isNotNull();
 	}
 
+	@DisplayName("해당 테이블 번호가 없을 경우 예외처리")
+	@Test
+	void notFindByNumberTest() {
+		assertThatThrownBy(() -> tableService.findByNumber(10)).isInstanceOf(IllegalArgumentException.class);
+	}
+
 	@DisplayName("숫자를 통해 테이블을 조회해 주문내역을 추가하는 기능 테스트")
 	@Test
 	void updateOrderHistoryByNumberTest() {

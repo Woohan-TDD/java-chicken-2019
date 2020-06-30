@@ -38,7 +38,9 @@ public class OrderHistories {
 	private void validateMenuQuantityGreaterThanNinetyNine(OrderHistory orderHistory) {
 		long orderedMenuCount = orderHistories.stream()
 			.filter(orderHistoryValue -> orderHistoryValue.isSameMenu(orderHistory.getMenu()))
-			.count();
+			.mapToInt(OrderHistory::getQuantity)
+			.sum();
+
 		long totalMenuCount = orderedMenuCount + orderHistory.getQuantity();
 
 		if(totalMenuCount > MAX_MENU_COUNT){

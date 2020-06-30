@@ -7,17 +7,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import domain.menu.Category;
 import domain.menu.Menu;
-import domain.menu.MenuRepository;
 
 public class OrderHistoryTest {
-	private final MenuRepository menuRepository = new MenuRepository();
-
 	private Menu menu;
 
 	@BeforeEach
 	void setUp() {
-		menu = menuRepository.findById(1);
+		menu = new Menu(1, "후라이드", Category.CHICKEN, 16_000);
 	}
 
 	@DisplayName("주문내역이 잘 생성되는지 확인하는 테스트")
@@ -39,7 +37,7 @@ public class OrderHistoryTest {
 
 	@DisplayName("toString() 테스트")
 	@Test
-	void toStringTest(){
+	void toStringTest() {
 		OrderHistory orderHistory = new OrderHistory(menu, 1);
 		assertThat(orderHistory.toString()).isEqualTo("후라이드 1 16000");
 	}

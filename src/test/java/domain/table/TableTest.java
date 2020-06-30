@@ -20,7 +20,6 @@ class TableTest {
 	@BeforeEach
 	void setUp() {
 		table = new Table(1, new ArrayList<>());
-
 	}
 
 	@DisplayName("해당 테이블 번호가 같은지 확인하는 테스트")
